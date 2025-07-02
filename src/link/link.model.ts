@@ -11,3 +11,5 @@ const linkSchema = new Schema<ILink>({
     shortCode: {type: String, required: true},
     accesCount: {type: Number, required: true, default: 0}
 }, {timestamps: true})
+
+export const LinkModel = model<ILink>('Link',linkSchema)

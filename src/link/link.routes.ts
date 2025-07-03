@@ -1,8 +1,11 @@
 import {Router} from 'express'
+import { LinkController } from './link.controller';
 
 export const linkRouter = Router();
 
-linkRouter.post('/')
+const linkController = new LinkController();
+
+linkRouter.post('/', linkController.createShortURL)
 linkRouter.get('/:shortCode')
 linkRouter.put('/:shortCode')
 linkRouter.delete('/:shortCode')

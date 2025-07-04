@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { AppError } from "../utils/AppError";
+import { AppError } from "../utils/AppError.js";
 import { ZodError } from "zod/v4";
+import { MongoError } from "mongodb";
 
 export function errorHandler(
     err: unknown,

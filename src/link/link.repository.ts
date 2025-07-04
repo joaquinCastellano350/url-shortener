@@ -1,11 +1,12 @@
-import { connectDB } from "../config/mongoose";
-import { ILink, LinkModel } from "./link.model";
+import { connectDB } from "../config/mongoose.js";
+import { ILink, LinkModel } from "./link.model.js";
 
 export class LinkRepository {
     constructor(){
         connectDB()
     }
     async createLink(data: Partial<ILink>) {
+
         const link = new LinkModel(data);
         return await link.save();
     }

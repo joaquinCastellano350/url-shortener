@@ -1,4 +1,4 @@
-import { LinkModel } from "../link/link.model";
+import { LinkModel } from "../link/link.model.js";
 
 function generateShortCode() {
     const letters = 'abcdefghijklmnopqrstuvwxyz';
@@ -6,15 +6,15 @@ function generateShortCode() {
 
     let shortCode = ''
     
-    const randomLetters = Array({length:3}, () => {
+    const randomLetters = Array.from({length:3}, () => 
         letters.charAt(Math.floor(Math.random()*letters.length))
-    }).join('')
+    ).join('')
 
-    const randomNumbers = Array({length:3}, () => {
+    const randomNumbers = Array.from({length:3}, () => 
         numbers.charAt(Math.floor(Math.random()*numbers.length))
-    }).join('')
+    ).join('')
 
-    shortCode = randomLetters + randomNumbers;
+    shortCode = `${randomLetters}${randomNumbers}`
 
     return shortCode
 }
@@ -24,8 +24,9 @@ export async function generateUniqueShortCode(): Promise<string> {
     let exists: any;
 
     do {
-        code = generateShortCode();
+        code = await generateShortCode();
         exists = await LinkModel.exists({shortCode:code})
+        
     }while(exists)
 
     return code

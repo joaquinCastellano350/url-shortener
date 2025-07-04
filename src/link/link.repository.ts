@@ -2,6 +2,7 @@ import { connectDB } from "../config/mongoose.js";
 import { ILink, LinkModel } from "./link.model.js";
 
 export class LinkRepository {
+    
     constructor(){
         connectDB()
     }
@@ -11,7 +12,7 @@ export class LinkRepository {
         return await link.save();
     }
     async findByShortCode(shortCode: string){
-        const link = await LinkModel.findOne({shortCode}, {accesCount: 0});
+        const link = await LinkModel.findOne({shortCode},{accesCount:0});
         return link;
     }
     async updateByShortCode(shortCode:string, data:Partial<ILink>){
@@ -22,6 +23,11 @@ export class LinkRepository {
         const result = await LinkModel.deleteOne({shortCode});
         return result;
     }
+    async incrementViews(shortCode: string) {
+        return LinkModel.updateOne({shortCode},{$inc : {accesCount: 1}})
+    }
+
+
     async getUrlStats(shortCode: string){
         const url = await LinkModel.findOne({shortCode})
         return url;

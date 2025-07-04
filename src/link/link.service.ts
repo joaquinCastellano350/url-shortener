@@ -18,4 +18,12 @@ export class LinkService {
         }
     }
 
+    async findOriginalURL(shortCode: string){
+        const shortened = await linkRepository.findByShortCode(shortCode)
+        if (!shortened){
+            throw new AppError('URL Not found',404);
+        }
+        linkRepository.incrementViews(shortCode)
+        return shortened
+    }
 }

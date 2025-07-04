@@ -6,14 +6,21 @@ const linkService = new LinkService()
 export class LinkController {
     async createShortURL(req: Request, res: Response, next: NextFunction){
         try{
-            
-
             const url = createLinkSchema.parse(req.body).url
             const shortened = await linkService.createShortURL(url);
             res.status(201).json({shortened});
         }catch(error){
             next(error);
         }
-        
+    }
+
+    async findOriginalURL(req: Request, res: Response, next: NextFunction){
+        try{
+            const shortCode = req.params.shortCode
+            const shortened = await linkService.findOriginalURL(shortCode);
+            res.status(201).json({shortened});
+        }catch(error){
+            next(error);
+        }
     }
 }

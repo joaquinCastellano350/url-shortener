@@ -5,6 +5,7 @@ import { LinkRepository } from "./link.repository.js";
 const linkRepository = new LinkRepository();
 
 export class LinkService {
+    
     async createShortURL(url: string) {
         try {
             const shortCode = await generateUniqueShortCode();
@@ -24,6 +25,18 @@ export class LinkService {
             throw new AppError('URL Not found',404);
         }
         linkRepository.incrementViews(shortCode)
+        return shortened
+    }
+
+    async updateOriginalURL(shortCode: string, newURL: string) {
+        const newAccesCount = 0
+        const shortened = await linkRepository.updateByShortCode(shortCode, {url: newURL, accesCount: newAccesCount})
+        if  (!shortened){
+            throw new AppError('URL Not found',404);
+        }
+        if (shortened && !shortened._id){
+            throw  new AppError('Internal app Error',500)
+        }
         return shortened
     }
 }

@@ -7,6 +7,6 @@ const linkController = new LinkController();
 
 linkRouter.post('/', linkController.createShortURL)
 linkRouter.get('/:shortCode', linkController.findOriginalURL)
-// linkRouter.put('/:shortCode')
+linkRouter.put('/:shortCode', linkController.updateOriginalURL)
 // linkRouter.delete('/:shortCode')
 // linkRouter.get('/:shortCode/stats')

@@ -23,4 +23,15 @@ export class LinkController {
             next(error);
         }
     }
+
+    async updateOriginalURL(req: Request, res: Response, next: NextFunction){
+        try {
+            const shortCode = req.params.shortCode
+            const newURL = createLinkSchema.parse(req.body).url
+            const shortened = await linkService.updateOriginalURL(shortCode, newURL)
+            res.status(201).json({shortened})
+        }catch(error){
+            next(error);
+        }
+    }
 }

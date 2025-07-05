@@ -16,7 +16,7 @@ export class LinkRepository {
         return link;
     }
     async updateByShortCode(shortCode:string, data:Partial<ILink>){
-        const link = await LinkModel.findOneAndUpdate({shortCode},{data},{new:true});
+        const link = await LinkModel.findOneAndUpdate({shortCode},data,{new:true});
         return link;
     }
     async deleteByShortCode(shortCode:string){

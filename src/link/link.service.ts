@@ -46,4 +46,11 @@ export class LinkService {
         }
         return
     }
+    async getLinkStats(shortCode: string) {
+        const stats = await linkRepository.getUrlStats(shortCode)
+        if (!stats){
+            throw new AppError('URL Not Found',404)
+        }
+        return stats;
+    }
 }

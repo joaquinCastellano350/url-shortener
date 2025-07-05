@@ -45,4 +45,13 @@ export class LinkController {
         }
 
     }
+    async getLinkStats(req: Request, res: Response, next: NextFunction){
+        try{
+            const shortCode = req.params.shortCode;
+            const stats = await linkService.getLinkStats(shortCode)
+            res.status(201).json({stats})
+        }catch(error){
+            next(error)
+        }
+    }
 }

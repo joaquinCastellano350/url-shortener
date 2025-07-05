@@ -34,4 +34,15 @@ export class LinkController {
             next(error);
         }
     }
+
+    async deleteLinkByShortCode(req: Request, res: Response, next: NextFunction){
+        try {
+            const shortCode = req.params.shortCode;
+            await linkService.deleteLinkByShortCode(shortCode);
+            res.status(204).send();
+        }catch(error){
+            next(error)
+        }
+
+    }
 }

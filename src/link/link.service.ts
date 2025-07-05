@@ -39,4 +39,11 @@ export class LinkService {
         }
         return shortened
     }
+    async deleteLinkByShortCode(shortCode: string) {
+        const deleted = await linkRepository.deleteByShortCode(shortCode);
+        if (deleted.deletedCount == 0){
+            throw new AppError('URL Not Found',404)
+        }
+        return
+    }
 }

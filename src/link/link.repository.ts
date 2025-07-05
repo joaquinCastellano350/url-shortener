@@ -16,7 +16,7 @@ export class LinkRepository {
         return link;
     }
     async updateByShortCode(shortCode:string, data:Partial<ILink>){
-        const link = await LinkModel.findOneAndUpdate({shortCode},data,{new:true});
+        const link = await LinkModel.findOneAndUpdate({shortCode},data,{new:true, accesCount:0});
         return link;
     }
     async deleteByShortCode(shortCode:string){
@@ -26,8 +26,6 @@ export class LinkRepository {
     async incrementViews(shortCode: string) {
         return LinkModel.updateOne({shortCode},{$inc : {accesCount: 1}})
     }
-
-
     async getUrlStats(shortCode: string){
         const url = await LinkModel.findOne({shortCode})
         return url;
